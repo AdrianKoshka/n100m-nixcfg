@@ -3,6 +3,7 @@
 {
     services = {
     fstrim.enable = true;
+    fwupd.enable = true;
     openssh = { 
         startWhenNeeded = true;
         enable = true;
