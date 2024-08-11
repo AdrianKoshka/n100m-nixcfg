@@ -5,33 +5,15 @@
 
 - hosts: nixos
   tasks:
-  - name: Copy main nixOS configuration
+  - name: Copy nixOS configuration
     ansible.builtin.copy:
-      src: configuration.nix
-      dest: /etc/nixos/configuration.nix
-    become: true
-  - name: Copy nixOS hardware configuration
-    ansible.builtin.copy:
-      src: hardware-configuration.nix
-      dest: /etc/nixos/hardware-configuration.nix
-    become: true
-  - name: Copy nixOS systemd configuration
-    ansible.builtin.copy:
-      src: systemd.nix
-      dest: /etc/nixos/systemd.nix
-    become: true
-  - name: Copy nixOS services configuration
-    ansible.builtin.copy:
-      src: services.nix
-      dest: /etc/nixos/services.nix
-    become: true
-  - name: Copy nixOS virtualisation configuration
-    ansible.builtin.copy:
-      src: virtualisation.nix
-      dest: /etc/nixos/virtualisation.nix
-    become: true
-  - name: Copy nixOS networking configuration
-    ansible.builtin.copy:
-      src: networking.nix
-      dest: /etc/nixos/networking.nix
+      src: "{{ item.src }}"
+      dest: "{{ item.dest }}"
+    with_items:
+      - { src: "configuration.nix", dest: "/etc/nixos/configuration.nix"}
+      - { src: "hardware-configuration.nix", dest: "/etc/nixos/hardware-configuration.nix"}
+      - { src: "systemd.nix", dest: "/etc/nixos/systemd.nix"}
+      - { src: "services.nix", dest: "/etc/nixos/services.nix"}
+      - { src: "virtualisation.nix", dest: "/etc/nixos/virtualisation.nix"}
+      - { src: "networking.nix", dest: "/etc/nixos/networking.nix"}
     become: true
